@@ -6,11 +6,12 @@
       "name": "compile-commands",
       "inherits": "conan-default",
       "binaryDir": "build",
-      "toolchainFile": "../build-ide/generator/conan-toolchain.cmake",
+      "toolchainFile": "../build-ide/generators/conan_toolchain.cmake",
       "generator": "Unix Makefiles",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "COMPILE_COMMANDS_RUN": "ON"
       }
     }
   ],

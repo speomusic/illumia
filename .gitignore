@@ -1,3 +1,4 @@
 *.swp
 build
 build-ide
+vst3sdk

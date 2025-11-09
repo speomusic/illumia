@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(illumia)
 
-if(NOT CMAKE_EXPORT_COMPILE_COMMANDS)
+if(NOT COMPILE_COMMANDS_RUN)
     execute_process(COMMAND cmake --preset compile-commands COMMAND_ECHO STDERR)
 endif()
 

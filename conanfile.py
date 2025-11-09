@@ -28,6 +28,7 @@ class Merc(ConanFile):
         tc = CMakeToolchain(self, generator = g)
         tc.user_presets_path = "ConanPresets.json"
         tc.cache_variables = {
+                "COMPILE_COMMANDS_RUN": "OFF",
                 "SMTG_ENABLE_VSTGUI_SUPPORT": "OFF",
                 "SMTG_CREATE_PLUGIN_LINK": "OFF",
                 "SMTG_ENABLE_VST3_HOSTING_EXAMPLES": "OFF",
