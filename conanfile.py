@@ -3,31 +3,25 @@ from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps, cmake_layout
 from conan.tools.scm import Git
 
 class Merc(ConanFile):
-    name = "merc"
+    name = "illumia"
     version = "1.0.0"
     author = "Jan jan@speomusic.com"
-    url = "github.com/speomusic/merc.git"
-    description = "A fully customizable modular synth. No wait, a JUCE-like library. Actually, a plugin format for motion graphics. In fact, an extension of VST to include more creative domains. Scratch that, a mini DAW... engine! Well a bit more general, like a plugin framework for audio and visuals."
+    url = "github.com/speomusic/illumia.git"
+    description = "Vst toolkit."
     settings = "os", "compiler", "build_type", "arch"
-    exports_sources = "include/*", "source/*", "test/*", "build/cmake/*", "build/include/merc/faust.h", "CMakeLists.txt"
+    exports_sources = "include/*", "source/*", "test/*", "CMakeLists.txt"
 
     def source(self):
         Git(self).clone("https://github.com/steinbergmedia/vst3sdk.git")
-        Git(self, "vst3sdk").checkout("v3.7.10_build_14")
+        Git(self, "vst3sdk").checkout("v3.8.0_build_66")
         for submodule in ["base", "cmake", "pluginterfaces", "public.sdk"]:
             Git(self, "vst3sdk").run(f"submodule update --init {submodule}")
-
-    def requirements(self):
-        self.requires("pfr/2.2.0")
 
     def build_requirements(self):
         self.test_requires("gtest/1.14.0")
 
     def layout(self):
         cmake_layout(self)
-        self.cpp.source.set_property("cmake_build_modules", ["build/cmake/merc.cmake"])
-        self.cpp.package.set_property("cmake_build_modules", ["cmake/merc.cmake"])
-        self.cpp.package.set_property("cmake_target_name", "merc::unused")
 
     def generate(self):
         g = { "Macos": "Xcode", "Windows": "Visual Studio 17 2022" }[str(self.settings.os)]
