@@ -17,19 +17,8 @@
   ],
   "buildPresets": [
     {
-      "name": "build-verbose",
+      "name": "tests",
       "inherits": "conan-debug",
-      "targets": "tests",
-      "nativeToolOptions": ["-arch", "arm64"]
-    },
-    {
-      "name": "build",
-      "inherits": "build-verbose",
-      "nativeToolOptions": ["-arch", "arm64", "-quiet"]
-    },
-    {
-      "name": "build-test",
-      "inherits": "build",
       "targets": "tests",
       "nativeToolOptions": ["-arch", "arm64", "-quiet"]
     }
@@ -37,7 +26,7 @@
   ],
   "testPresets": [
     {
-      "name": "mercury",
+      "name": "tests",
       "inherits": "conan-debug",
       "configuration": "debug",
       "output" : {
@@ -45,13 +34,9 @@
       },
       "filter": {
         "include": {
-          "name": "mercury"
+          "name": "tests"
         }
       }
-    },
-    {
-      "name": "tests",
-      "inherits": "conan-debug"
     }
   ]
 }

@@ -1,13 +1,12 @@
 #include "illumia/space.h"
 #include "illumia/paths.h"
-#include "merc/global/config.h"
 #include <algorithm>
 #include <fstream>
 #include <public.sdk/source/common/readfile.h>
 #include <public.sdk/source/vst/moduleinfo/moduleinfoparser.h>
 #include <sstream>
 
-namespace merc::av {
+namespace illumia {
 static const char *const cacheHeader{
     "cid,name,category,subCategories,module,lmt"};
 
@@ -23,16 +22,16 @@ makeSubCategoriesString(const std::vector<std::string> &subCategories) {
   return r;
 }
 
-Space::Space() {
+Space::Space(const std::vector<std::filesystem::path> &vstDirs,
+             const std::filesystem::path &spaceCachePath) {
   std::set<std::filesystem::path> canonicals;
-  canonicals.insert(std::filesystem::canonical(global::getVstDefaultUserDir()));
+  canonicals.insert(std::filesystem::canonical(getVstDefaultUserDir()));
   canonicals.insert(
-      std::filesystem::canonical(global::getVstDefaultSystemDir()));
-  for (const auto &d : global::getConfig().vstDirs)
+      std::filesystem::canonical(getVstDefaultSystemDir()));
+  for (const auto &d : vstDirs)
     if (std::filesystem::is_directory(d))
       canonicals.insert(std::filesystem::canonical(d));
-  auto cachePath{global::getConfigPath().parent_path() /
-                 global::getConfig().spaceCacheDir / "merc-space-cache.csv"};
+  auto cachePath{spaceCachePath};
   if (!std::filesystem::exists(cachePath) || !fromCache(cachePath, canonicals))
     fromDirs(canonicals, cachePath);
 }
