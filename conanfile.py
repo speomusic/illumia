@@ -21,7 +21,7 @@ class Merc(ConanFile):
         self.test_requires("gtest/1.14.0")
 
     def layout(self):
-        cmake_layout(self)
+        cmake_layout(self, build_folder = "build-ide")
 
     def generate(self):
         g = { "Macos": "Xcode", "Windows": "Visual Studio 17 2022" }[str(self.settings.os)]
