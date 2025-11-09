@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "merc/global/config.h"
 #include "merc/av/space.h"
-#include "util.h"
 
 TEST(MercSpace, CanMakeFromFoldersWithCache)
 {
