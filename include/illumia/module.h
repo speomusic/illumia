@@ -1,7 +1,7 @@
 #pragma once
 
-#include "merc/vst/module-instance.h"
-#include "merc/vst/vstvideoeffect.h"
+#include "illumia/module-instance.h"
+#include "illumia/vstvideoeffect.h"
 #include <public.sdk/source/vst/vstaudioeffect.h>
 #include <span>
 #include <utility>
@@ -9,7 +9,7 @@
 #include <concepts>
 #include <memory>
 
-namespace merc::vst
+namespace illumia
 {
     struct SampleRate
     {
@@ -20,7 +20,7 @@ namespace merc::vst
 
     template<typename Object>
     concept DerivedFromEffect = std::derived_from<Object, Steinberg::Vst::AudioEffect>
-                             || std::derived_from<Object, merc::vst::VideoEffect>;
+                             || std::derived_from<Object, illumia::VideoEffect>;
 
     template<typename Object>
     concept ValidObject = DerivedFromEffect<Object> && requires()
@@ -33,7 +33,7 @@ namespace merc::vst
     template<ValidObject... Objects>
     struct Module final : Steinberg::IPluginFactory2
     {
-        static_assert(sizeof...(Objects) <= MERC_GENERATED_GUID_COUNT,
+        static_assert(sizeof...(Objects) <= ILLUMIA_GENERATED_GUID_COUNT,
                       "You need more GUIDS!"
                       "Increase the GENERATED_GUID_COUNT option when adding this module in CMake.");
 
@@ -42,11 +42,11 @@ namespace merc::vst
         Module()
         {
             moduleInstance = this;
-            char mercGeneratedGuids[][33]{ MERC_GENERATED_GUIDS };
+            char illumiaGeneratedGuids[][33]{ ILLUMIA_GENERATED_GUIDS };
             for (int i { 0 }; i < sizeof...(Objects); ++i)
             {
                 Steinberg::FUID fuid;
-                fuid.fromString(mercGeneratedGuids[i]);
+                fuid.fromString(illumiaGeneratedGuids[i]);
                 fuid.toTUID(classGuids[i]);
             }
         }
@@ -57,9 +57,9 @@ namespace merc::vst
         {
             *info = Steinberg::PFactoryInfo
             {
-                MERC_MODULE_VENDOR,
-                MERC_MODULE_URL,
-                MERC_MODULE_EMAIL,
+                ILLUMIA_MODULE_VENDOR,
+                ILLUMIA_MODULE_URL,
+                ILLUMIA_MODULE_EMAIL,
                 Steinberg::PFactoryInfo::kUnicode
             };
             return Steinberg::kResultOk;
@@ -111,7 +111,7 @@ namespace merc::vst
                 Object::getName(),
                 0,
                 Object::getSubCategory(),
-                MERC_MODULE_VENDOR,
+                ILLUMIA_MODULE_VENDOR,
                 "1.0.0",
                 kVstVersionString
             };

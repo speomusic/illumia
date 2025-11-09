@@ -1,6 +1,6 @@
-#include "merc/vst/module-instance.h"
+#include "illumia/module-instance.h"
 
-namespace merc::vst
+namespace illumia
 {
     constinit Steinberg::IPluginFactory2* moduleInstance{};
 }
@@ -17,7 +17,7 @@ extern "C"
 {
     SMTG_EXPORT_SYMBOL Steinberg::IPluginFactory* PLUGIN_API GetPluginFactory()
     {
-        return merc::vst::moduleInstance;
+        return illumia::moduleInstance;
     }
 
     SMTG_EXPORT_SYMBOL bool PLUGIN_API INIT()

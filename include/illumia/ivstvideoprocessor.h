@@ -3,20 +3,20 @@
 #include <pluginterfaces/base/funknown.h>
 #include <pluginterfaces/vst/ivstcomponent.h>
 #include <pluginterfaces/vst/ivstevents.h>
-#include "merc/vst/video-bus-arrangement.h"
+#include "illumia/video-bus-arrangement.h"
 
 #ifndef kVstVideoEffectClass
 #define kVstVideoEffectClass "Video Module Class"
 #endif
 
-namespace merc::vst
+namespace illumia
 {
 	namespace video_sub_category
 	{
 		constexpr const char* pixels{ "Pixels" };
 	}
 
-	enum MercMediaTypes
+	enum IllumiaMediaTypes
 	{
 		kVideo = Steinberg::Vst::kNumMediaTypes,
 		kNumMediaTypes

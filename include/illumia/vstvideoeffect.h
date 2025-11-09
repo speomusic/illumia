@@ -1,9 +1,9 @@
 #pragma once
 
 #include <public.sdk/source/vst/vstcomponent.h>
-#include "merc/vst/ivstvideoprocessor.h"
+#include "illumia/ivstvideoprocessor.h"
 
-namespace merc::vst
+namespace illumia
 {
 	class VideoBus : public Steinberg::Vst::Bus
 	{

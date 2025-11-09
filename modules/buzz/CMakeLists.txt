@@ -1,5 +1,5 @@
-merc_add_faust(buzz-faust ${CMAKE_CURRENT_SOURCE_DIR}/buzz.dsp)
-merc_add_module(buzz buzz.cpp
+illumia_add_faust(buzz-faust ${CMAKE_CURRENT_SOURCE_DIR}/buzz.dsp)
+illumia_add_module(buzz buzz.cpp
     GUID 63bf7d56-deb7-458e-8f8e-407e0390de34
     VENDOR Speo
     URL https://speomusic.com

@@ -1,6 +1,6 @@
-#include "merc/vst/vstvideoeffect.h"
+#include "illumia/vstvideoeffect.h"
 
-namespace merc::vst
+namespace illumia
 {
     DEF_CLASS_IID(IVideoProcessor)
 

@@ -20,6 +20,7 @@ target_link_libraries(sdk INTERFACE "-framework Cocoa")
 add_library(illumia STATIC
     include/illumia/space.h
     source/space.cpp
+    source/vstvideoeffect.cpp
 )
 target_include_directories(illumia PUBLIC include)
 target_link_libraries(illumia PUBLIC sdk sdk_hosting)
