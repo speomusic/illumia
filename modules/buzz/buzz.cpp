@@ -1,5 +1,5 @@
-#include <merc/vst/module.h>
-#include <merc/buzz-faust.h>
+#include <illumia/module.h>
+#include <illumia/buzz-faust.h>
 
 struct Buzz : Steinberg::Vst::AudioEffect
 {
@@ -17,7 +17,7 @@ struct Buzz : Steinberg::Vst::AudioEffect
     {
         if (state)
         {
-//            std::vector<merc::faust::NoteCV> noteCVs{ { 0, 0xFFFF } };
+//            std::vector<illumia::faust::NoteCV> noteCVs{ { 0, 0xFFFF } };
 //            faustBuzz.init(processSetup.sampleRate, processSetup.maxSamplesPerBlock, std::move(noteCVs));
             faustBuzz.init(processSetup.sampleRate, processSetup.maxSamplesPerBlock);
         }
@@ -43,7 +43,7 @@ struct Buzz : Steinberg::Vst::AudioEffect
         return Steinberg::kResultOk;
     }
 
-    merc::faust::buzz faustBuzz;
+    illumia::faust::buzz faustBuzz;
 };
 
-template struct merc::vst::Module<Buzz>;
+template struct illumia::Module<Buzz>;

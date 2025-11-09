@@ -9,7 +9,7 @@
 #include <cmath>
 #include <algorithm>
 
-namespace merc::faust
+namespace illumia::faust
 {
     struct NoteCV
     {

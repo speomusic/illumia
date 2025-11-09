@@ -2,7 +2,7 @@
 
 #include <pluginterfaces/vst/vsttypes.h>
 
-namespace merc::vst
+namespace illumia
 {
     using TextureBusType = unsigned;
     const TextureBusType kBGRA8Unorm{ 0 };

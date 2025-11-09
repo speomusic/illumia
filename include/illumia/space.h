@@ -11,7 +11,7 @@
 #include <pluginterfaces/vst/ivsteditcontroller.h>
 #include <public.sdk/source/vst/hosting/module.h>
 
-namespace merc::av
+namespace illumia
 {
     struct Space
     {

@@ -19,7 +19,7 @@
     {
       "name": "build-verbose",
       "inherits": "conan-debug",
-      "targets": "mercury",
+      "targets": "tests",
       "nativeToolOptions": ["-arch", "arm64"]
     },
     {
