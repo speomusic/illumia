@@ -55,3 +55,120 @@ enable_testing()
 add_subdirectory(modules)
 add_subdirectory(test)
 add_subdirectory(mercury)
+
+add_library(av STATIC
+    include/merc/av/change-scope.h
+    include/merc/av/editor.h
+    include/merc/av/element.h
+    include/merc/av/gate.h
+    include/merc/av/link.h
+    include/merc/av/merc-av.h
+    include/merc/av/merc-element.h
+    include/merc/av/merc-link.h
+    include/merc/av/merc-step.h
+    include/merc/av/mercer.h
+    include/merc/av/out.h
+    include/merc/av/resource.h
+    include/merc/av/revolver.h
+    include/merc/av/space.h
+    include/merc/av/step.h
+    include/merc/av/thread.h
+    include/merc/av/time-keeper.h
+    include/merc/av/vst-element.h
+    include/merc/av/vst-link.h
+    include/merc/av/vst-step.h
+    include/merc/av/work.h
+    include/merc/av/worker.h
+    source/change-scope.cpp
+    source/editor.cpp
+    source/element.cpp
+    source/merc-av.cpp
+    source/merc-element.cpp
+    source/mercer.cpp
+    source/out.cpp
+    source/resource.cpp
+    source/space.cpp
+    source/time-keeper.cpp
+    source/visitors.h
+    source/vst-element.cpp
+    source/vst-link.cpp
+)
+target_include_directories(av PUBLIC include)
+target_link_libraries(av PUBLIC global merc-vst)
+if(WIN32)
+    target_sources(av PRIVATE
+        source/editor-window.cpp
+        source/pixels.cpp
+        source/thread.cpp
+        source/vst-step.cpp
+    )
+    target_link_libraries(av INTERFACE d3d12 dxgi d3dcompiler runtimeobject)
+    target_compile_options(av PUBLIC "/wd4661")
+elseif(APPLE)
+    set(OBJC_SOURCES
+        source/editor-window.mm
+        source/pixels.mm
+        source/thread.mm
+        source/vst-step.mm
+    )
+    target_sources(av PRIVATE ${OBJC_SOURCES})
+    set_source_files_properties(${OBJC_SOURCES}
+        PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+endif()
+
+add_subdirectory(realtime)
+
+add_library(av-realtime STATIC
+    include/merc/av/realtime/audio.h
+    include/merc/av/realtime/video.h
+    include/merc/av/realtime/video-impl.h)
+target_include_directories(av-realtime PUBLIC include)
+target_link_libraries(av-realtime PUBLIC av)
+if(WIN32)
+    target_sources(av-realtime PRIVATE
+        source/audio.cpp
+        source/video.cpp
+    )
+elseif(APPLE)
+    set(OBJC_SOURCES
+        source/audio.mm
+        source/video.mm
+    )
+    target_sources(av-realtime PRIVATE ${OBJC_SOURCES})
+    set_source_files_properties(${OBJC_SOURCES}
+        PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+    target_link_libraries(av-realtime INTERFACE "-framework AudioToolbox")
+endif()
+
+add_library(merc-vst STATIC
+    include/merc/vst/factory.h
+    include/merc/vst/faust.h
+    include/merc/vst/graphics.h
+    include/merc/vst/ivstvideoprocessor.h
+    include/merc/vst/module-instance.h
+    include/merc/vst/module.h
+    include/merc/vst/video-bus-arrangement.h
+    include/merc/vst/voice-pool.h
+    include/merc/vst/vst-utils.h
+    include/merc/vst/vstvideoeffect.h
+    source/faust.cpp
+    source/vstvideoeffect.cpp
+    ${CMAKE_SOURCE_DIR}/vst3sdk/public.sdk/source/vst/moduleinfo/moduleinfoparser.cpp
+    ${CMAKE_SOURCE_DIR}/vst3sdk/public.sdk/source/vst/moduleinfo/moduleinfocreator.cpp)
+target_include_directories(merc-vst PUBLIC include)
+target_link_libraries(merc-vst PUBLIC sdk sdk_hosting)
+if(WIN32)
+    target_sources(merc-vst PRIVATE
+        ${CMAKE_SOURCE_DIR}/vst3sdk/public.sdk/source/vst/hosting/module_win32.cpp
+        include/merc/vst/windows-utils.h
+        source/graphics.cpp
+        source/windows-utils.cpp)
+elseif(APPLE)
+    set(OBJC_SOURCES
+        ${CMAKE_SOURCE_DIR}/vst3sdk/public.sdk/source/vst/hosting/module_mac.mm
+        source/graphics.mm)
+    target_sources(merc-vst PRIVATE ${OBJC_SOURCES})
+    set_source_files_properties(${OBJC_SOURCES}
+        PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+    target_link_libraries(merc-vst INTERFACE "-framework Metal" "-framework MetalKit" "-framework MetalPerformanceShaders")
+endif()
