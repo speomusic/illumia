@@ -1,15 +1,4 @@
 include(faust.cmake)
 include(module.cmake)
 
-# add_subdirectory(bloom)
 add_subdirectory(buzz)
-# add_subdirectory(deltick)
-# add_subdirectory(lfo)
-# add_subdirectory(royal)
-# add_subdirectory(texcube)
-# add_subdirectory(tick)
-add_subdirectory(triangle)
-# add_subdirectory(trancegate)
-
-# add_subdirectory(goodwin)
-# add_subdirectory(zaval)

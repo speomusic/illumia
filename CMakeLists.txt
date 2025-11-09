@@ -18,20 +18,13 @@ add_subdirectory(vst3sdk)
 target_link_libraries(sdk INTERFACE "-framework Cocoa")
 
 add_library(illumia STATIC
-    include/merc/merc.h
-    include/merc/merc-database.h
-    source/merc.cpp
-    source/merc-database.cpp
+    include/illumia/space.h
+    source/space.cpp
 )
-target_include_directories(merc PUBLIC include)
-target_link_libraries(merc PUBLIC interface-database script av-realtime)
-if(WIN32)
-    target_sources(merc PRIVATE
-    )
-elseif(APPLE)
-    set(OBJC_SOURCES
-    )
-    target_sources(merc PRIVATE ${OBJC_SOURCES})
-    set_source_files_properties(${OBJC_SOURCES}
-        PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
-endif()
+target_include_directories(illumia PUBLIC include)
+target_link_libraries(illumia PUBLIC sdk sdk_hosting)
+
+add_subdirectory(modules)
+
+enable_testing()
+add_subdirectory(test)

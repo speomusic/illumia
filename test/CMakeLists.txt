@@ -6,6 +6,7 @@ add_executable(tests
 target_link_libraries(tests PRIVATE merc GTest::GTest GTest::Main)
 
 add_dependencies(tests buzz)
-target_compile_definitions(tests PRIVATE TEST_CMAKE_BINARY_DIR="${CMAKE_BINARY_DIR}")
+target_compile_definitions(tests
+    PRIVATE TEST_CMAKE_BINARY_DIR="${CMAKE_BINARY_DIR}")
 
 add_test(NAME tests COMMAND tests)
