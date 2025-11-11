@@ -1,17 +1,13 @@
-#import "merc/vst/graphics.h"
-#import "merc/vst/factory.h"
+#import "illumia/graphics.h"
+#import "illumia/factory.h"
 
-namespace merc::vst
-{
-    Factory::Factory()
-        : graphics{ std::make_unique<Graphics>() }
-    {}
+namespace illumia {
+Factory::Factory() : graphics{std::make_unique<Graphics>()} {}
 
-    Factory::~Factory() = default;
+Factory::~Factory() = default;
 
-    Graphics::Graphics()
-    {
-        device = MTLCreateSystemDefaultDevice();
-        commandQueue = [device newCommandQueue];
-    }
+Graphics::Graphics() {
+  device = MTLCreateSystemDefaultDevice();
+  commandQueue = [device newCommandQueue];
 }
+} // namespace illumia

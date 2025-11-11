@@ -39,6 +39,7 @@ if(WIN32)
 elseif(APPLE)
     set(OBJC_SOURCES
         ${VST_SOURCE_DIR}/hosting/module_mac.mm
+        source/graphics.mm
         source/paths.mm
     )
     target_sources(illumia PRIVATE ${OBJC_SOURCES})
